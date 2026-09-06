@@ -1,0 +1,1014 @@
+
+/* Style de la navbar */
+html {
+  scroll-behavior: smooth;
+  font-family: "Playfair Display", serif;
+}
+
+nav.navbar {
+  border-radius: 15px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background-color: transparent;
+  padding: 15px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.4s ease;
+  z-index: 999;
+  font-family: poppins;
+}
+
+/* Quand on scrolle vers le haut (navbar rose) */
+nav.navbar.scrolled-up {
+  background-color: #f8c4d4;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Quand on scrolle vers le bas (navbar cachée) */
+nav.navbar.scrolled-down {
+  transform: translateY(-100%);
+  opacity: 0;
+}
+
+.logo {
+  height: 70px;
+  background-size: 30px;
+  border-radius: 20px;
+  display: flex;
+  text-align: left;
+}
+
+.nav-links {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  font-size: 24px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.nav-icons {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+    font-size: 20px;
+}
+.profile-icon {
+    color: white;
+    font-size: 22px;
+}
+.profile-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-icon {
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* NOUVEAU : pastille de notification sur l'icône profil */
+.profile-icon-zone {
+  position: relative;
+  display: inline-block;
+}
+
+.pastille-notif {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  width: 10px;
+  height: 10px;
+  background: #e57373;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.notif-rdv-lien {
+  display: block;
+  background: #fff0f5;
+  color: #434343;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  text-decoration: none;
+}
+
+.notif-rdv-lien:hover {
+  background: #f8c4d4;
+}
+
+/* Caché par défaut — UNE SEULE déclaration display */
+.auth-container {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  width: 600px;
+  height: 350px;        /* NOUVEAU : hauteur fixe indispensable pour la photo */
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  background: white;
+}
+
+/* Visible uniquement au survol — devient "flex" seulement ici */
+.profile-wrapper:hover .auth-container {
+  display: flex;
+}
+
+/* NOUVEAU : ouverture forcée via JS (bouton "Se connecter" de la section avis) */
+.profile-wrapper.force-open .auth-container {
+  display: flex;
+}
+
+.auth-photo {
+  flex: 1;
+  order: 1;
+  height: 100%;          /* NOUVEAU : hérite bien de la hauteur du parent */
+}
+
+.auth-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.form-login a, .form-signup  a{
+  color: #f7bcce;
+}
+.form-login h3, .form-signup  h3{
+  color: #F28B82;
+  font-family: "Pacifico", cursive;
+}
+.auth-forms {
+  flex: 1;
+  order: 2;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;      /* NOUVEAU : évite que le formulaire déborde si petit */
+}
+
+.form-login, .form-signup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-login input, .form-signup input {
+  padding: 10px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.form-login button, .form-signup button {
+  padding: 10px;
+  background: #F28B82;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* NOUVEAU : message d'erreur affiché directement dans le formulaire, en rouge */
+.erreur-champ {
+  color: #c0392b;
+  background: #fdecea;
+  border-radius: 5px;
+  padding: 8px 10px;
+  font-size: 13px;
+  margin: -6px 0 12px 0;
+  text-align: center;
+}
+
+.auth-container.flipped .auth-photo {
+  order: 2;
+}
+
+.auth-container.flipped .auth-forms {
+  order: 1;
+}
+
+/* ============================================= */
+/* NOUVEAU : Menu déroulant "connecté" au survol  */
+/* Même mécanisme que .auth-container ci-dessus   */
+/* ============================================= */
+.user-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  min-width: 220px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  padding: 18px 20px;
+  text-align: left;
+}
+
+.profile-wrapper:hover .user-menu {
+  display: block;
+}
+
+.user-menu .user-connecte {
+  display: block;
+  color: #434343;
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-family: poppins;
+}
+
+.user-menu .btn-deconnexion {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding: 8px 14px;
+  background: #F28B82;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: poppins;
+  transition: background 0.2s ease;
+}
+
+.user-menu .btn-deconnexion:hover {
+  background: #99D1C9;
+  color: white;
+}
+
+.nav-links a:hover {
+    color: #F28B82;
+}
+.carousel-item img{
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  font: inherit;
+  font-size: 100%;
+}
+#home {
+  position: relative;
+  width: 100%;
+}
+
+.home-text {
+  margin-top: 50px;
+  margin-left: 500px;
+  text-align: center;
+  color: #F28B82;
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 30px;
+  height: 250px;
+  border-radius: 10px;
+  max-width: 500px;
+}
+.d-block{
+  height: 500px;
+  width: 100%;
+  margin-right: 50px;
+  margin-left: 50px;
+}
+.home-text h1 {
+  margin: 0;
+  font-size: 40px;
+  font-family: "Pacifico", cursive;
+}
+
+.home-text h2 {
+  margin: 10px 0 20px 0;
+  font-size: 22px;
+  color: #434343;
+}
+
+
+
+#btn1:hover {
+  background-color: #99D1C9;
+  color: white;
+}
+
+#about{
+    background-color: #fff0f5;
+    padding: 60px 20px;
+     text-align: center;
+}
+#about h2{
+    font-size: 2.2rem; 
+    font-weight: 500px;
+    color: #F28B82;
+    padding: 10px 20px;
+}
+#about p{
+    max-width: 800px;
+    margin: 20px auto; 
+    font-size: 18px; 
+    color: #555;
+}
+#products {
+  margin-bottom: 0;
+  padding: 0px 20px;
+  text-align: center;
+}
+
+.container h2 {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #F28B82;
+  padding: 10px 20px;
+}
+
+.carousel-item {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 30px;
+  flex-wrap: nowrap;
+}
+
+.product-card {
+  flex: 0 0 45%; /* prend 45% de l'espace */
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+@media (max-width: 768px) {
+  .carousel-item  {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  img {
+    flex: 1 0 100%;
+  }
+}
+
+
+.product-card img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover; /* ajuste l’image sans la déformer */
+  display: block;
+}
+/* Carousel arrows */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-size: 70% 70%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  background-color: #333;
+  transform: scale(1.1);
+}
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product-card {
+  width: calc(50% - 10px); /* 2 cartes par ligne avec espace entre elles */
+}
+
+
+
+#review{
+    margin: 0px;  
+    padding: 0px;
+    height: 900px;
+    font-family: poppins;
+    box-sizing:border-box ;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction:column;
+    width: 100%;
+    float: left;
+}
+a{
+    text-decoration: none;
+}
+
+.testimonial-heading{
+    letter-spacing: 1px;
+    margin-top: 0px;
+    margin: 5px 0px;
+    padding: 5px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.testimonial-heading h2{
+   font-size: 2.2rem; 
+   font-weight: 500px;
+   color: #F28B82;
+   padding: 10px 20px;
+
+}
+.reviews i{
+    color: gold;
+}
+.testimonial-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+}
+.testimonial-box{
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0,0,0,0.1);
+    background-color: #f3d5de;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+
+}
+#btn1, #btnAllerConnexion{
+  padding: 10px;
+  background: #006064;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+#btnAllerConnexion:hover{
+  background-color: #99D1C9;
+  color: white;
+}
+.avis-section h2{
+  font-size: 2.2rem; 
+   font-weight: 500px;
+   color: #F28B82;
+   padding: 10px 20px;
+}
+
+/* ============================================= */
+/* NOUVEAU : Habillage complet de la section Avis */
+/* ============================================= */
+.avis-liste {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1000px;
+  margin: 20px auto 40px auto;
+  padding: 0 20px;
+}
+
+.avis-card {
+  background-color: #f3d5de;
+  border-radius: 12px;
+  box-shadow: 2px 2px 20px rgba(0,0,0,0.08);
+  padding: 20px;
+  width: 280px;
+  text-align: left;
+}
+
+.avis-header h4 {
+  margin: 0 0 5px 0;
+  color: #434343;
+  font-family: poppins;
+}
+
+.avis-header .etoiles {
+  color: gold;
+  margin-bottom: 10px;
+}
+
+.avis-texte {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.avis-form-container {
+  max-width: 500px;
+  margin: 0 auto 40px auto;
+  background-color: #fff0f5;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.08);
+  padding: 30px;
+  text-align: center;
+}
+
+.avis-form-container h3 {
+  color: #F28B82;
+  font-family: "Pacifico", cursive;
+  margin-bottom: 10px;
+}
+
+.connecte-comme {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.etoiles-choix {
+  font-size: 28px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.etoiles-choix span {
+  filter: grayscale(100%);
+  opacity: 0.5;
+  transition: all 0.15s ease;
+}
+
+.etoiles-choix span.active {
+  filter: none;
+  opacity: 1;
+}
+
+.avis-form-container textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-bottom: 12px;
+  font-family: poppins;
+  resize: vertical;
+}
+
+.avis-form-container button[type="submit"] {
+  padding: 10px 20px;
+  background: #F28B82;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.avis-form-container button[type="submit"]:hover {
+  background: #99D1C9;
+}
+
+.note-info {
+  font-size: 13px;
+  color: #888;
+  margin-top: 10px;
+}
+
+.avis-connexion-requise {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.avis-connexion-requise p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+/* ============================================= */
+/* NOUVEAU : Section Rendez-vous                  */
+/* ============================================= */
+.rdv-section {
+  text-align: center;
+  padding: 60px 20px;
+  background-color: #f3d5de;
+}
+
+.rdv-section h2 {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: #F28B82;
+  padding: 10px 20px;
+}
+
+.rdv-wrap {
+  max-width: 950px;
+  margin: 20px auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.rdv-calendrier {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.08);
+  padding: 20px;
+  width: 340px;
+}
+
+.rdv-calendrier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rdv-calendrier-header button {
+  background: #F28B82;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.rdv-calendrier-header button:hover {
+  background: #99D1C9;
+}
+
+.rdv-calendrier-header h3 {
+  color: #434343;
+  font-size: 16px;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.rdv-jours-entete {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.rdv-grille {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.rdv-jour {
+  text-align: center;
+  padding: 8px 0;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  background: #fafafa;
+  color: #434343;
+}
+
+.rdv-jour:hover {
+  background: #ffe1e8;
+}
+
+.rdv-jour-vide {
+  cursor: default;
+  background: transparent;
+}
+
+.rdv-jour-passe {
+  color: #ccc;
+  cursor: default;
+  background: transparent;
+}
+
+.rdv-jour-occupe {
+  background: #f8c4d4;
+  font-weight: 600;
+}
+
+.rdv-jour.selectionne {
+  background: #F28B82;
+  color: white;
+}
+
+.rdv-creneaux-jour {
+  margin-top: 15px;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+  font-size: 14px;
+}
+
+.rdv-hint {
+  color: #888;
+  margin: 0;
+}
+
+.rdv-liste-heures {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.rdv-liste-heures li {
+  background: #f8c4d4;
+  color: #434343;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+.rdv-form-zone {
+  flex: 1;
+  min-width: 280px;
+}
+
+.rdv-form-container, .rdv-connexion-requise {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.08);
+  padding: 30px;
+}
+
+.rdv-form-container h3 {
+  color: #F28B82;
+  font-family: "Pacifico", cursive;
+  margin-bottom: 10px;
+}
+
+.rdv-form-container label {
+  display: block;
+  color: #555;
+  font-size: 14px;
+  margin: 12px 0 4px 0;
+}
+
+.rdv-form-container select,
+.rdv-form-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-family: poppins;
+  box-sizing: border-box;
+}
+
+.rdv-services-choix {
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 8px;
+  margin-top: 6px;
+}
+
+.rdv-service-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #434343;
+}
+
+.rdv-service-item:hover {
+  background: #fff0f5;
+}
+
+.rdv-service-item input[type="checkbox"] {
+  width: auto;
+  flex-shrink: 0;
+}
+
+.rdv-service-item span:nth-child(2) {
+  flex: 1;
+}
+
+.rdv-service-prix {
+  color: #F28B82;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.rdv-total {
+  text-align: right;
+  margin: 10px 0 0 0;
+  color: #434343;
+  font-size: 15px;
+}
+
+.rdv-total strong {
+  color: #F28B82;
+}
+
+.rdv-form-container button[type="submit"] {
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  background: #F28B82;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.rdv-form-container button[type="submit"]:hover {
+  background: #99D1C9;
+}
+
+.rdv-form-container button[type="submit"]:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+.rdv-avertissement {
+  color: #c0392b;
+  font-size: 13px;
+  min-height: 18px;
+  margin: 8px 0 0 0;
+}
+
+.rdv-existant {
+  background: #fff0f5;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #555;
+}
+
+.rdv-existant-detail {
+  color: #434343;
+  font-size: 15px;
+}
+
+.rdv-statut {
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 14px;
+}
+
+.rdv-statut-attente {
+  background: #fff3cd;
+  color: #8a6d1a;
+}
+
+.rdv-statut-confirme {
+  background: #d4f4e2;
+  color: #1a7a4c;
+}
+
+.rdv-statut-refuse {
+  background: #fdecea;
+  color: #c0392b;
+}
+
+.btn-annuler-rdv {
+  padding: 8px 16px;
+  background: #e57373;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.btn-annuler-rdv:hover {
+  background: #d15c5c;
+}
+
+.rdv-connexion-requise {
+  text-align: center;
+}
+
+.rdv-connexion-requise p {
+  color: #555;
+  margin-bottom: 15px;
+}
+
+#contact{
+  margin: 0px;
+  padding: 60px 20px;
+  text-align: center;
+  font-family: poppins;
+}
+
+#contact h2 {
+  text-align: center;
+  font-size: 2.2rem; 
+  font-weight: 500px;
+  color: #F28B82;
+  padding: 10px 20px;
+  font-family: poppins;
+}
+
+.contact-wrap {
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  border-radius: 20px;
+  width: 50%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: #fff0f5;
+  padding: 60px;
+  padding-left: 250px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.avis-section{
+  text-align: center;
+  margin: auto;
+}
+.contact-info {
+  flex: 1;
+  min-width: 300px;
+}
+.contact-info h1 {
+  color: #4b4b4b;
+  letter-spacing: 0.5px;
+  font-family: Arial, Helvetica, sans-serif;
+  margin-bottom: 30px;
+}
+.contact-info {
+  text-align: left;
+  font-size: 18px;
+  line-height: 2;
+}
+.contact-info i {
+  color: #F28B82;
+  margin-right: 10px;
+}
+footer{
+    background-color:  #f8c4d4;
+    height: 300px;
+    width: 100%;
+}
+.footer-logo{
+    margin-top: 50px;
+    padding-top: 30px;
+    padding-left: 30px;
+    width: 70%;
+    float: left;
+}
+.footer-logo h1{
+    font-size: 50px;
+    font-weight: bold;
+    color: #F28B82;
+    flex: 1;
+    text-align: left;
+}
+.footer-logo p{
+    font-size: 1.5rem;
+    color: #4b4b4b;
+}
+.footer-nav{
+  margin-top: 50px;
+  text-align: center;
+  width: 30%;
+  float: left;
+  
+}
+.footer-nav a{
+  text-decoration: none;
+  color: #4b4b4b ;
+}
+.footer-info{
+  margin-top: 20px;
+  justify-content: space-between;
+}
+.footer-info i{
+  margin-left: 250px;
+}

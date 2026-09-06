@@ -1,0 +1,36 @@
+# ---- Sensitive config ----
+config.php
+.env
+
+# ---- OS files ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Editor/IDE files ----
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ---- Logs ----
+*.log
+error_log
+
+# ---- XAMPP / local server artifacts (only relevant if repo sits inside xampp folder) ----
+phpmyadmin/
+webalizer/
+
+# ---- Dependency folders (if you ever add Composer/npm) ----
+vendor/
+node_modules/
+
+# ---- Backup / temp files ----
+*.bak
+*.tmp
+*~
+#*#
+
+# ---- Database dumps (don't commit real data) ----
+*.sql
+!schema.sql
